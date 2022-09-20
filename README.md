@@ -23,4 +23,10 @@ This assignment is complicated for me so I'm going to place my thoughts on how t
 3. How do I contain the vertexes within the chess board (8x8 board)?
     - While mapping out the graph, if x and y values are less than 0 and greater than 7, then return.
     - This feels like I'll need a recursive function that creates a vertex on the starting position and then create a bunch of vertices with edges within the board.
-      - Will this technically create 8x8 = 64 vertices on the board? 
+      - I'm hoping this will create all 64 vertices with multiple adjacent edges.
+
+4. How many factory functions will I need to make?
+    - Let's see... I have a primary function called `knightMoves` and it needs to accept 2 parameters, start and end.
+    - I need a function that creates vertices and its adjacent edges.
+
+After fumbling around with my thoughts, I think I'm going to try to create the knight's graph first, then play with bfs vs dfs.
