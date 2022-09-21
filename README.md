@@ -15,12 +15,12 @@ knightMoves.js contains a single factory function, `Graph()`. It returns `chessB
 ```javascript
 function Graph() {
   return {
-    adjSquares: new Map(),
+    chessBoard: new Map(),
 
     addVertices(size = 8) {
     },
 
-    addEdges(board = this.adjSquares) {
+    addEdges(board = this.chessBoard) {
     },
 
     knightMoves(start, end) {
