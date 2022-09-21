@@ -30,8 +30,9 @@ function Queue() {
 
     // Returns all the elements of a queue
     printQueue() {
+      console.log(this.items.length)
       let str = '';
-      for (let i =0; i < this.items.length; i += 1) {
+      for (let i = 0; i < this.items.length; i += 1) {
         str += this.items[i] + ' ';
         return str;
       }
