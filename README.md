@@ -7,7 +7,7 @@ Find the shortest path between two positions for a chess' knight piece
 ## Summary
 Knights Travails is a function that accepts the starting and end position of a chess board (from 0,0 to 7,7). The project uses the graph data-structure and finds the shortest possible route by using depth-first search (DFS).
 
-knightMoves.js contains a single factory function, `Graph()`. It returns `adjSquares`, which contains edges and 3 functions that,
+knightMoves.js contains a single factory function, `Graph()`. It returns `chessBoard`, which contains vertices and 3 functions that,
   1. Creates the vertices (`addVertices()`)
   2. Define the edges (`addEdges()`)
   3. List the shortest routes (`knightMoves()`)
@@ -17,10 +17,10 @@ function Graph() {
   return {
     adjSquares: new Map(),
 
-    addVertices(size) {
+    addVertices(size = 8) {
     },
 
-    addEdges(vertex = this.adjSquares) {
+    addEdges(board = this.adjSquares) {
     },
 
     knightMoves(start, end) {
@@ -32,7 +32,7 @@ function Graph() {
 When running the below lines of code,
 ```javascript
 const g = new Graph();
-g.addVertices(8);
+g.addVertices();
 g.addEdges();
 g.knightMoves('0,0', '1,2');
 g.knightMoves('3,1', '2,2');

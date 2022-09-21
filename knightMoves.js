@@ -1,42 +1,40 @@
 function Graph() {
   return {
-    adjSquares: new Map(),
+    chessBoard: new Map(),
 
-    addEdges(vertex = this.adjSquares) {
-      for (let [ key ] of vertex) {
-        const keyArr = key.split(',')
-        const x = parseInt(keyArr[0]);
-        const y = parseInt(keyArr[1]);
-
-        // Change direction based on clock position
-        const direction = {
-          1: [ x + 1, y + 2 ].toString(),
-          2: [ x + 2, y + 1 ].toString(),
-          
-          4: [ x + 2, y - 1 ].toString(),
-          5: [ x + 1, y - 2 ].toString(),
-          
-          7: [ x - 1, y - 2 ].toString(),
-          8: [ x - 2, y - 1 ].toString(),
-          
-          10: [ x - 2, y + 1 ].toString(),
-          11: [ x - 1, y + 2 ].toString(),
-        }
-        for (let j in direction) {
-          if (vertex.has(direction[j])) {
-            if (!vertex.get(key).includes(direction[j])) {
-              this.adjSquares.get(key).push(direction[j]);
-              this.adjSquares.get(direction[j]).push(key);
-            }
-          }
+    addVertices(size = 8 /* Standard chess board size is 8 */) {
+      // Create a square board
+      for (let i = 0; i < size; i += 1) {
+        for (let j = 0; j < size; j += 1) {
+          // The key needs to be set as a string  
+          // or else the get() in addEdges() does not work
+          this.chessBoard.set(`${[i, j]}`, []);
         }
       }
     },
 
-    addVertices(size) {
-      for (let i = 0; i < size; i += 1) {
-        for (let j = 0; j < size; j += 1) {
-          this.adjSquares.set(`${[i, j]}`, []);
+    // Connect all board squares based on knight's move pattern 
+    addEdges(board = this.chessBoard) {
+      for (let [ pos ] of board) {
+        const posArr = pos.split(',');
+        const x = parseInt(posArr[0]);
+        const y = parseInt(posArr[1]);
+        // Change direction based on clock position
+        const direction = {
+          1: [ x + 1, y + 2 ],
+          2: [ x + 2, y + 1 ],
+          4: [ x + 2, y - 1 ],
+          5: [ x + 1, y - 2 ],
+          7: [ x - 1, y - 2 ],
+          8: [ x - 2, y - 1 ],
+          10: [ x - 2, y + 1 ],
+          11: [ x - 1, y + 2 ],
+        }
+        for (let clock in direction) {
+          const move = direction[clock].toString();
+          if (board.has(move) && !board.get(pos).includes(move)) {
+            this.chessBoard.get(pos).push(move);
+          }
         }
       }
     },
@@ -52,10 +50,10 @@ function Graph() {
         if (current === end) {
           paths.push(path);
         }
-        const neighbors = this.adjSquares.get(current);
-        for (let neighbor of neighbors) {
-          if (!visited.has(neighbor)) {
-            queue.push([neighbor, [...path, neighbor]]);
+        const neighbors = this.chessBoard.get(current);
+        for (let pos of neighbors) {
+          if (!visited.has(pos)) {
+            queue.push([pos, [...path, pos]]);
           }
         }
       }
@@ -66,8 +64,8 @@ function Graph() {
 }
 
 const g = new Graph();
-g.addVertices(8);
+g.addVertices();
 g.addEdges();
 g.knightMoves('0,0', '1,2');
 g.knightMoves('3,1', '2,2');
-g.knightMoves('7,7', '7,6')
+g.knightMoves('7,7', '7,6');
