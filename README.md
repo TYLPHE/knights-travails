@@ -40,7 +40,7 @@ g.knightMoves('7,7', '7,6');
 ```
 
 returns the following lines in the console:
-```javascript
+```
 Fastest Routes from 0,0 to 1,2
 Array [ "0,0", "1,2" ]
 
